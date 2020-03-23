@@ -1272,3 +1272,22 @@ function compareStrforOneDiff(mainStr, checkStr) {
 	}
 }
 //console.log(compareStrforOneDiff('abcdeg', 'daecgg'));
+
+///mac-48 address
+function isMAC48Address(inputString) {
+	let arr = inputString.split('-');
+
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i].length !== 2) {
+			return false;
+		}
+		debugger;
+		if ((arr[i][0] !== '0' && !parseInt(arr[i][0], 16)) || (arr[i][1] !== '0' && !parseInt(arr[i][1], 16))) {
+			return false;
+		}
+	}
+	return true;
+}
+
+// elections winner
+function electionsWinners(votes, k) {}
