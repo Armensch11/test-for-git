@@ -1313,3 +1313,52 @@ function electionsWinners(votes, k) {
 		return count;
 	}
 }
+
+// build palindrome, obshij dzvarot er
+
+function buildPalindrome(st) {
+	let k;
+	let checkPoint;
+	let isPalindrome = true;
+	for (let i = 0; i < st.length; i++) {
+		if (st[i] !== st[st.length - 1 - i]) {
+			isPalindrome = false;
+		}
+
+		k = 1;
+		if (st[i - (st.length - 1 - i)]) {
+			while (st[i + k] && st[i - k] === st[i + k]) {
+				k++;
+			}
+
+			if (k + i === st.length) {
+				checkPoint = i - k;
+				break;
+			}
+		}
+	}
+	if (isPalindrome) {
+		return st;
+	}
+	if (k === 1) {
+		checkPoint = st.length - 1 - 1;
+		if (st[checkPoint] === st[checkPoint + 1]) {
+			checkPoint = checkPoint - 1;
+		}
+	}
+
+	let palindromSt = st;
+	for (let i = checkPoint; i >= 0; i--) {
+		palindromSt += st[i];
+	}
+	return palindromSt;
+}
+
+//is digit
+function isDigit(symbol) {
+	if (symbol.charCodeAt(0) >= 48 && symbol.charCodeAt(0) <= 57) {
+		return true;
+	} else {
+		return false;
+	}
+}
