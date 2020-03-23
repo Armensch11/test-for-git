@@ -1290,4 +1290,26 @@ function isMAC48Address(inputString) {
 }
 
 // elections winner
-function electionsWinners(votes, k) {}
+function electionsWinners(votes, k) {
+	let max = -Infinity;
+	for (let i = 0; i < votes.length; i++) {
+		if (max < votes[i]) {
+			max = votes[i];
+		}
+	}
+	let count = 0;
+	let countMax = 0;
+	for (let i = 0; i < votes.length; i++) {
+		if (votes[i] === max) {
+			countMax++;
+		}
+		if (votes[i] + k > max) {
+			count++;
+		}
+	}
+	if (countMax === 1 && count === 0) {
+		return 1;
+	} else {
+		return count;
+	}
+}
