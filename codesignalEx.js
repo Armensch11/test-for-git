@@ -1362,3 +1362,156 @@ function isDigit(symbol) {
 		return false;
 	}
 }
+
+//symbol count
+function lineEncoding(s) {
+	let symbolSt = '';
+	let count;
+	for (let i = 0; i < s.length; i++) {
+		count = 1;
+		while (s[i + 1] && s[i] === s[i + 1]) {
+			count++;
+			i++;
+		}
+		if (count === 1) {
+			symbolSt += s[i];
+		} else {
+			symbolSt += count + s[i];
+		}
+	}
+	return symbolSt;
+}
+
+function chessKnight(cell) {
+	let letterToIndex = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' ];
+	let a = cell[1] - 1;
+	let b = letterToIndex.indexOf(cell[0]);
+	let count = 0;
+	for (let i = 7; i >= 0; i--) {
+		for (let j = 0; j < 8; j++) {
+			if (
+				((i === a + 2 || i === a - 2) && (j === b + 1 || j === b - 1)) ||
+				((i === a + 1 || i === a - 1) && (j === b + 2 || j === b - 2))
+			) {
+				count++;
+			}
+		}
+	}
+	return count;
+}
+//console.log(chessKnight('g8'));
+
+function deleteDigit(n) {
+	n = String(n);
+	let numArr = n.split('');
+	let max = -Infinity;
+	for (let i = 0; i < numArr.length; i++) {
+		let tempArr = numArr.slice(0);
+		tempArr.splice(i, 1);
+		if (+tempArr.join('') > max) {
+			max = +tempArr.join('');
+		}
+	}
+	return max;
+}
+
+// sum up all numbers
+function sumUpNumbers(inputString) {
+	let sum = 0;
+	for (let i = 0; i < inputString.length; i++) {
+		let strOfNum = '';
+		while (inputString.charCodeAt(i) >= 48 && inputString.charCodeAt(i) <= 57) {
+			strOfNum += inputString[i];
+			i++;
+		}
+		sum += +strOfNum;
+	}
+	return sum;
+}
+
+//unique squares in matrix
+function differentSquares(matrix) {
+	let matrixArr = [];
+	for (let i = 0; i < matrix.length - 1; i++) {
+		for (let j = 0; j < matrix[i].length - 1; j++) {
+			let tempArr = [];
+			tempArr.push(matrix[i][j]);
+			tempArr.push(matrix[i][j + 1]);
+			tempArr.push(matrix[i + 1][j]);
+			tempArr.push(matrix[i + 1][j + 1]);
+			matrixArr.push(tempArr.join(''));
+		}
+	}
+	console.log(matrixArr);
+	if (matrixArr.length === 0) {
+		return 0;
+	}
+	let uniqueSquareArr = [];
+	uniqueSquareArr.push(matrixArr[0]);
+
+	for (let i = 0; i < matrixArr.length; i++) {
+		let exist = false;
+		for (let j = 0; j < uniqueSquareArr.length; j++) {
+			if (uniqueSquareArr[j] === matrixArr[i]) {
+				exist = true;
+			}
+		}
+		if (!exist) {
+			uniqueSquareArr.push(matrixArr[i]);
+		}
+	}
+
+	return uniqueSquareArr.length;
+}
+
+// lav xndira
+function digitsProduct(product) {
+	if (product === 0) {
+		return 10;
+	} else if (product === 1) {
+		return 1;
+	}
+	let valueHolder = product;
+	let numArr = [];
+	let i = 9;
+	while (i !== 1) {
+		while (product % i === 0) {
+			numArr.push(i);
+			product = product / i;
+			if (product < 1) {
+				break;
+			}
+		}
+
+		i--;
+	}
+
+	if (numArr.length === 0) {
+		return -1;
+	}
+	let mult = 1;
+	for (let i = 0; i < numArr.length; i++) {
+		mult *= numArr[i];
+	}
+	if (mult === valueHolder) {
+		return +numArr.reverse().join('');
+	} else {
+		return -1;
+	}
+}
+
+console.log(digitsProduct(12));
+
+// binary code decoding
+function messageFromBinaryCode(code) {
+	let tempStr = '';
+	let finalStr = '';
+	for (let i = 1; i <= code.length; i++) {
+		if (i % 8 === 0) {
+			finalStr += String.fromCharCode(parseInt(tempStr, 2));
+			tempStr = '';
+		}
+		tempStr += code[i];
+	}
+	return finalStr;
+}
